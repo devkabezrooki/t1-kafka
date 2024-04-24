@@ -15,15 +15,12 @@ import java.util.stream.Collectors;
 public class MetricsCollectorService {
 
     private final Set<String> metricNames = Set.of(
-            "jvm.compilation.time",
-            "disk.total",
             "disk.free",
             "jvm.memory.used",
+            "jvm.buffer.memory.used",
             "jvm.gc.memory.allocated",
             "jvm.classes.loaded",
             "jvm.classes.unloaded",
-            "jvm.buffer.memory.used",
-            "application.started.time",
             "tasks.scheduled.execution.active"
     );
 
