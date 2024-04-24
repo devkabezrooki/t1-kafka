@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd
+                   http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
+
+    <changeSet id="1 kafka project init migration" author="devkabezrooki">
+        <createTable tableName="metrics">
+            <column name="id" remarks="Идентификатор сущности" type="java.sql.Types.BIGINT" autoIncrement="true">
+                <constraints primaryKey="true" primaryKeyName="pk_metrics"/>
+            </column>
+            <column name="name" remarks="Наименование метрики" type="java.sql.Types.VARCHAR(500)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="value" remarks="Значение метрики" type="java.sql.Types.DOUBLE">
+                <constraints nullable="false"/>
+            </column>
+            <column name="measure_date" remarks="Время замера метрики" type="timestamp(6)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="receive_date" remarks="Время получения метрики" type="timestamp(6)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+</databaseChangeLog>

@@ -1,0 +1,39 @@
+version: "3"
+services:
+  zookeeper:
+    image: wurstmeister/zookeeper
+    ports:
+      - "2181:2181"
+
+  kafka:
+    image: wurstmeister/kafka
+    ports:
+      - "9092:9092"
+    environment:
+      KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
+      KAFKA_ADVERTISED_HOST_NAME: localhost
+    links:
+      - zookeeper
+
+
+  kafka-metrics-consumer:
+    build:
+      context: ./metrics-consumer
+      dockerfile: Dockerfile
+    ports:
+      - 8090:8090
+    environment:
+      SPRING_KAFKA_BOOTSTRAP_SERVERS: kafka:9092
+      SPRING_KAFKA_CONSUMER_GROUP_ID: consumer-group
+      SPRING_KAFKA_LISTENER_AUTO_OFFSET_RESET: earliest
+      SPRING_KAFKA_TEMPLATE_DEFAULT_TOPIC: metrics-topic
+
+  kafka-metrics-producer:
+    build:
+      context: ./metrics-producer
+      dockerfile: Dockerfile
+    ports:
+      - 8091:8091
+    environment:
+      SPRING_KAFKA_BOOTSTRAP_SERVERS: kafka:9092
+      SPRING_KAFKA_TEMPLATE_DEFAULT_TOPIC: metrics-topic
