@@ -19,7 +19,7 @@ import java.util.Map;
 public class KafkaProducerConfig {
 
     @Value("${spring.kafka.template.default-topic}")
-    public static final String METRICS_TOPIC = "metrics-topic";
+    private String METRICS_TOPIC;
     @Bean
     public ProducerFactory<String, MetricMeasurementDto> producerFactory() {
         Map<String, Object> configProps = new HashMap<>();

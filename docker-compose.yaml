@@ -15,25 +15,9 @@ services:
     links:
       - zookeeper
 
-
-  kafka-metrics-consumer:
-    build:
-      context: ./metrics-consumer
-      dockerfile: Dockerfile
-    ports:
-      - 8090:8090
+  db:
+    image: postgres:16
+    container_name: kafka_db
     environment:
-      SPRING_KAFKA_BOOTSTRAP_SERVERS: kafka:9092
-      SPRING_KAFKA_CONSUMER_GROUP_ID: consumer-group
-      SPRING_KAFKA_LISTENER_AUTO_OFFSET_RESET: earliest
-      SPRING_KAFKA_TEMPLATE_DEFAULT_TOPIC: metrics-topic
-
-  kafka-metrics-producer:
-    build:
-      context: ./metrics-producer
-      dockerfile: Dockerfile
-    ports:
-      - 8091:8091
-    environment:
-      SPRING_KAFKA_BOOTSTRAP_SERVERS: kafka:9092
-      SPRING_KAFKA_TEMPLATE_DEFAULT_TOPIC: metrics-topic
+      - POSTGRES_USER=t1_school_admin
+      - POSTGRES_PASSWORD=1234
